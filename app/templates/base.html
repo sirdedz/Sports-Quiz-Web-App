@@ -1,0 +1,12 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{title}} - SharkStakes</title>
+        {% else %}
+        <title>SharkStakes</title>
+        {% endif %}
+    </head>
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>
