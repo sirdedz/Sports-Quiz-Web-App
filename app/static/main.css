@@ -2,6 +2,8 @@
     --header_height: 80px;
     --grey1: rgba(0, 0, 0, 0.05);
     --navy1: #26374D;
+    --navy1rgb: rgba(38, 55, 77, 1);
+    --green1: #146E1E;
 }
 
 html{
@@ -13,7 +15,8 @@ body{
 }
 
 .header{
-    background-color: var(--grey1);
+    background-color: white;
+    color: var(--navy1);
     height: var(--header__height);
     width: 100%;
     display: grid;
@@ -29,6 +32,18 @@ body{
     padding-right: 20px;
     line-height: var(--header_height);
     font-family: 'New Century Schoolbook', 'TeX Gyre Schola', 'serif';
+    text-decoration: none;
+    color: var(--navy1);
+}
+
+.header p:hover, a:hover{
+    color: var(--green1);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.header img:hover{
+    cursor: pointer;
 }
 
 .header-left{
@@ -47,18 +62,92 @@ body{
     justify-content: flex-end;
 }
 
+.header-right i{
+    font-size: 1.5em;
+    text-align: center;
+    padding-right: 0;
+    padding-left: 0;
+    display: flex;
+    align-items: center;
+}
+
 .content{
-    width: 85%;
+    background-color: var(--grey1);
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 20px;
+    padding-top: 0;
     padding-bottom: 20px;
+    min-height: 1500px;
 }
 
 .footer{
     background-color: var(--navy1);
-    border: 1px solid var(--navy1);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     color: white;
+    bottom: 0;
+    min-height: 150px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.footer *{
+    font-size: 0.5em;
+    height: 100%;
+}
+
+/*------------------- INDEX.HTML --------------------*/
+
+#carousel{
+    background-color: black;
+}
+
+.carousel-inner{
+    height: 600px;
+}
+
+.carousel-item{
+    text-align: center;
+}
+
+.carousel-item img{
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.coming-soon{
+    padding-top: 1.5em;
+    width: 100%;
+    text-align: center;
+}
+
+.coming-soon h3{
+    font-size: 1.5em;
+}
+
+.coming-soon table{
+    border: 1px solid var(--grey1);
+    width: 85%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.coming-soon table thead{
+    background-color: var(--navy1);
+    color: white;
+}
+
+.coming-soon table td{
+    border-left: 1px solid var(--grey1);
+    border-right: 1px solid var(--grey1);
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.coming-soon table td:last-child{
+    text-decoration: underline;
 }
