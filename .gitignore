@@ -136,3 +136,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+#OS X files
+.DS_Store
+
+#SQL files
+.open
