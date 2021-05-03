@@ -11,7 +11,9 @@ def index():
     #Get events for front page
     events = Event.query.all()
 
-    return render_template('index.html', title="SharkStakes", events=events)
+    return render_template('index.html', events=events)
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
