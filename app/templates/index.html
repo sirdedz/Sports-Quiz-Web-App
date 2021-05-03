@@ -45,6 +45,16 @@
                 <th scope="col">VIEW</th>
               </tr>
             </thead>
+
+            {% for event in events %}
+            <tr>
+                <td>{{event.time}}</td>
+                <td>{{event.title}}</td>
+                <td><a href={{ url_for('event') }}>VIEW</a></td>
+            </tr>
+            {% endfor %}
+
+            <!--
             <tbody>
               <tr>
                 <td>25s</td>
@@ -61,7 +71,7 @@
                 <td>sdfasdfasfadsffadsf</td>
                 <td><a>View</a></td>
               </tr>
-            </tbody>
+            </tbody> -->
           </table>
     </div>
 
