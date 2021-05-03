@@ -45,22 +45,15 @@
                 <th scope="col">VIEW</th>
               </tr>
             </thead>
+
             <tbody>
-              <tr>
-                <td>25s</td>
-                <td>asdfkjasdbfasdfasd</td>
-                <td><a>View</a></td>
-              </tr>
-              <tr>
-                <td>1m 43s</td>
-                <td>asdfasdfasdfasdfadsf</td>
-                <td><a>View</a></td>
-              </tr>
-              <tr>
-                <td>1d 3h</td>
-                <td>sdfasdfasfadsffadsf</td>
-                <td><a>View</a></td>
-              </tr>
+                {% for event in events %}
+                <tr>
+                    <td>{{event.time}}</td>
+                    <td>{{event.title}}</td>
+                    <td><a href={{ url_for('event') }}>VIEW</a></td>
+                </tr>
+                {% endfor %}
             </tbody>
           </table>
     </div>
