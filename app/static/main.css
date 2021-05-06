@@ -156,3 +156,10 @@ body{
 .coming-soon table td:last-child{
     text-decoration: underline;
 }
+
+/*------------------- LOGIN.HTML --------------------*/
+
+.form {
+  text-align: center;
+  vertical-align: middle;
+}
