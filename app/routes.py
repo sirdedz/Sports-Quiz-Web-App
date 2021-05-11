@@ -37,4 +37,8 @@ def event():
 #probably incorrect for user page
 @app.route('/user', methods=['GET', 'POST'])
 def user():
-    return "Placeholder for user details page"
+    return render_template('user.html')
+
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template('about.html')
