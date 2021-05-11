@@ -20,7 +20,7 @@ def login():
     if form.validate_on_submit():
         flash('Login requested for user {}, remember_me={}'.format(form.username.data, form.remember_me.data))
         return redirect('/index')
-    
+
     return render_template('login.html', title="Sign In", form=form)
 
 
@@ -32,3 +32,9 @@ def register():
 @app.route('/event')
 def event():
     return "Placeholder for event page"
+
+
+#probably incorrect for user page
+@app.route('/user', methods=['GET', 'POST'])
+def user():
+    return "Placeholder for user details page"

@@ -42,10 +42,10 @@
             </div>
             <div class="header-right">
                 <p><a href={{ url_for('login') }}>Login</a></p>
-                <i class="bi bi-person-circle"></i>
+                <a href={{ url_for('user') }}> <i class="bi bi-person-circle"></i></a> 
             </div>
         </div>
-        
+
         <!-- CONTENT -->
         <div class="content">
             {% block content %}{% endblock %}
