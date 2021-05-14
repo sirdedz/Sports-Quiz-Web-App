@@ -36,16 +36,19 @@
             <div class="header-left">
                 <img src="{{ url_for('static', filename='assets/logo1.png') }}" alt="Shark Stakes LLC" onclick="toHome()">
                 <p>Menu</p>
+                <p>Quizzes</p>
+                <p><a href={{ url_for('user') }}>Results and Stats</a></p>
+                <p><a href={{ url_for('about') }}>About</a></p>
             </div>
             <div class="header-middle">
 
             </div>
             <div class="header-right">
-                <p><a href={{ url_for('login') }}>Login</a></p>
-                <i class="bi bi-person-circle"></i>
+                <p><a href={{ url_for('login') }}>Login/Register</a></p>
+                <a href={{ url_for('user') }}> <i class="bi bi-person-circle"></i></a>
             </div>
         </div>
-        
+
         <!-- CONTENT -->
         <div class="content">
             {% block content %}{% endblock %}
