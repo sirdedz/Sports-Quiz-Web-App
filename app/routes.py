@@ -1,11 +1,19 @@
-from app import app 
+from app import app, db, models
 from flask import render_template, flash, redirect
 from app import forms
+
+from app.models import User, Account, Offer, Event
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title="SharkStakes")
+
+    #Get events for front page
+    events = Event.query.all()
+
+    return render_template('index.html', events=events)
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -21,3 +29,8 @@ def login():
 @app.route('/register')
 def register():
     return "Placeholder for registration page"
+
+
+@app.route('/event')
+def event():
+    return "Placeholder for event page"

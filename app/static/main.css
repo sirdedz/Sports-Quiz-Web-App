@@ -71,6 +71,11 @@ body{
     align-items: center;
 }
 
+.header-right i:hover{
+    cursor: pointer;
+    color: var(--green1);
+}
+
 .content{
     background-color: var(--grey1);
     width: 100%;
