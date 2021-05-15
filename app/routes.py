@@ -31,16 +31,26 @@ def register():
     return "Placeholder for registration page"
 
 
-@app.route('/event')
-def event():
-    return "Placeholder for event page"
+@app.route('/quiz')
+def quiz():
+    return render_template('quiz.html', title="Quiz")
 
-
-#probably incorrect for user page
 @app.route('/user', methods=['GET', 'POST'])
 def user():
-    return render_template('user.html')
+    return render_template('user.html', title="Account")
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
-    return render_template('about.html')
+    return render_template('about.html', title="About Us")
+
+@app.route('/results', methods=['GET'])
+def results():
+    return render_template('results.html', title="Your Results")
+
+@app.route('/content', methods=['GET', 'POST'])
+def content():
+    return render_template('content.html', title="Learning Materials")
+
+@app.route('/stats', methods=['GET'])
+def stats():
+    return render_template('stats.html' title="Global Statistics")
