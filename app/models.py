@@ -59,6 +59,7 @@ class Result(db.Model):
     questions_answered = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     quiz_title = db.Column(db.String(128), db.ForeignKey('quiz.title'))
+    date = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Result {}>'.format(self.id)

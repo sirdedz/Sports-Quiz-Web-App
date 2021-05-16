@@ -1,11 +1,13 @@
 from app import app, db, models, forms
 from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import current_user, login_user, logout_user, login_required
-from app.controllers import UserController, QuizController
+from app.controllers import UserController, QuizController, ResultController
 from werkzeug.urls import url_parse
 from werkzeug.datastructures import ImmutableMultiDict
 
 from app.models import User, Quiz, Question, Result
+from datetime import datetime
+import json
 
 @app.route('/')
 @app.route('/index')
@@ -57,21 +59,30 @@ def quiz(title):
 
     return render_template('quiz.html', title="Quiz", quiz=quiz, questions=questions)
 
+@app.route('/results', methods=['GET', 'POST'])
+@login_required
+def results():
+    return ResultController.generate()
+
+@app.route('/get_results_json')
+def get_results_json():
+    
+    results = Result.query.filter(Result.user_id==current_user.id).all()
+    final = []
+
+    for r in results:
+        final.append({r.score: r.date})
+
+    return json.dumps(final, default=str)
+
 @app.route('/user', methods=['GET', 'POST'])
 @login_required
 def user():
-
-    results = Result.query.filter(Result.user_id==current_user.id).all()
-
-    return render_template('user.html', title="Account", results=results)
+    return render_template('user.html', title="Results")
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
     return render_template('about.html', title="About Us")
-
-@app.route('/results', methods=['GET'])
-def results():
-    return render_template('results.html', title="Your Results")
 
 @app.route('/content', methods=['GET', 'POST'])
 def content():
@@ -161,7 +172,7 @@ def submit_quiz():
 
 
 
-    new_result = Result(score=score, questions_answered=questions_answered, user_id=current_user.id, quiz_title=quiz_title)
+    new_result = Result(score=score, questions_answered=questions_answered, user_id=current_user.id, quiz_title=quiz_title, date=datetime.utcnow())
 
     db.session.add(new_result)
     db.session.commit()

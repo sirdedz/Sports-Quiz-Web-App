@@ -8,25 +8,4 @@
 
 
         <p><a href={{ url_for('logout') }}>Logout</a></p>
-
-        <div>
-            <h4>Results</h4>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Quiz</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for result in results %}
-                        <tr>
-                            <td>{{result.quiz_title}}</td>
-                            <td>{{result.score}}/{{result.questions_answered}}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
 {% endblock %}

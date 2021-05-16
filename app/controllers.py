@@ -90,3 +90,10 @@ class QuizController():
         db.session.commit()
 
         return redirect(url_for('create_question', quiz_title=quiz_title))
+
+    
+class ResultController():
+    def generate():
+        results = Result.query.filter(Result.user_id==current_user.id).all()
+
+        return render_template('results.html', title="Results", results=results)

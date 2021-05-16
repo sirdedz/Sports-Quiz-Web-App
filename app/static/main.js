@@ -107,3 +107,47 @@ function submitQuiz(){
     $("#nextQuestionButton").addClass("hidden");
     $("#questions").html("Thank you for completing the quiz.");
 }
+
+
+//RESULT.HTML
+
+const labels = [];
+const dataPoints = [];
+
+function addData(user_data){
+    json = JSON.parse(user_data);
+    
+    for(var i = 0; i < json.length; i++){
+        for (var key in json[i]){
+            dataPoints.push(key);
+            labels.push(json[i][key]);
+        }
+    }  
+
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Scores Over Time',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: dataPoints,
+        }]
+    };
+    
+    const config = {
+        type: 'line',
+        data,
+        options: {}
+    };
+
+    var myChart = new Chart(
+        document.getElementById("myChart").getContext("2d"),
+        config
+      );
+}
+
+$("#results-table").ready(drawResults);
+
+function drawResults(){
+    $.get('get_results_json', addData);
+}
