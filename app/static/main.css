@@ -169,6 +169,21 @@ table td{
 /*------------------- ABOUT.HTML --------------------*/
 
 .about-flex{
+    object-fit: cover;
+    background-color: blue;
+    flex-basis: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy1);
+    height: var(--header__height);
+    width: auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+}
+
+.about-flex img{
     background-color: blue;
     flex-basis: auto;
     flex: 1 1 auto;
@@ -201,5 +216,3 @@ table td{
 .question-hidden{
     display: none;
 }
-
-
