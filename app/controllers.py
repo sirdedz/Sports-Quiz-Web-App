@@ -1,8 +1,8 @@
 from app import forms, models, db, app
-from flask import render_template, flash, redirect, request, url_for
+from flask import render_template, flash, redirect, request, url_for, session
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, Quiz, Question
 
 
 class UserController():
@@ -16,16 +16,12 @@ class UserController():
         user = User.query.filter_by(username=form.username.data).first()
 
         if user is None or not user.check_password(form.password.data):
-            flash('invalid username or password', form.password.data)
+            flash('invalid username or password')
             return redirect(url_for('login'))
 
         login_user(user, remember=form.remember_me.data)
-        next_page = request.args.get('next')
 
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = 'user'
-
-        return redirect(url_for(next_page))
+        return redirect(url_for('user'))
 
 
     def logout():
@@ -61,3 +57,37 @@ class UserController():
         db.session.commit()
 
         return redirect(url_for('login'))
+
+
+class QuizController():
+    def create(form):
+
+        title = request.form.get('title')
+        sport = request.form.get('sport')
+
+        quiz = Quiz.query.filter_by(title=title).first()
+
+        if quiz:
+            flash('Quiz already exists, add questions:')
+            return redirect(url_for('create_question'))
+
+        new_quiz = Quiz(title=title, sport=sport)
+        db.session.add(new_quiz)
+        db.session.commit()
+        
+        session['quiz'] = title
+        session.modified = True
+
+        return redirect(url_for('create_question'))
+
+    def createQuestion(form, quiz_id):
+
+        question = request.form.get('question')
+        answer = request.form.get('answer')
+
+        new_question = Question(question=question, answer=answer, quiz_id=quiz_id)
+
+        db.session.add(new_question)
+        db.session.commit()
+
+        return redirect(url_for('create_question'))

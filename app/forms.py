@@ -15,3 +15,13 @@ class RegistrationForm(FlaskForm):
     surname = StringField('Surname: ', validators=[DataRequired()])
     password = PasswordField('Password: ', validators=[DataRequired()])
     submit = SubmitField('Register')
+
+class CreateQuizForm(FlaskForm):
+    title = StringField('Title: ', validators=[DataRequired()])
+    sport = StringField('Sport: ', validators=[DataRequired()])
+    submit = SubmitField('Create Quiz')
+
+class CreateQuestionForm(FlaskForm):
+    question = StringField('Question: ', validators=[DataRequired()])
+    answer = StringField('Answer: ', validators=[DataRequired()])
+    submit = SubmitField('Add Question')

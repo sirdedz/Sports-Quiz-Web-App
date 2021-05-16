@@ -8,7 +8,6 @@ $('.carousel').carousel({
 });
 
 
-
 //REGISTER.HTML
 function validateUsername(){
     if($('.required').innerHTML == None){
@@ -16,4 +15,10 @@ function validateUsername(){
     }else{
         return true;
     }
+}
+
+
+//QUIZ.HTML
+function nextQuestion(){
+    console.log('nextQ')
 }

@@ -84,6 +84,7 @@ body{
     padding-top: 0;
     padding-bottom: 20px;
     min-height: 1500px;
+    text-align: center;
 }
 
 .footer{
@@ -136,19 +137,19 @@ body{
     font-size: 1.5em;
 }
 
-.coming-soon table{
+table{
     border: 1px solid var(--grey1);
     width: 85%;
     text-align: center;
     margin: 0 auto;
 }
 
-.coming-soon table thead{
+table thead{
     background-color: var(--navy1);
     color: white;
 }
 
-.coming-soon table td{
+table td{
     border-left: 1px solid var(--grey1);
     border-right: 1px solid var(--grey1);
     padding-top: 0.5em;

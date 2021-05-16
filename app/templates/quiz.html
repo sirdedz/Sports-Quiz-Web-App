@@ -1,0 +1,12 @@
+<!-- page for completing a quiz -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="quiz-question">
+        <h2>{{ quiz.title }}</h2>
+
+
+        <p onclick='nextQuestion()'>Next Question</p>
+    </div>
+{% endblock %}

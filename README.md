@@ -16,6 +16,10 @@ Setting up Database:
 1. Run 'sqlite3 app.db'
 2. Run '.tables'
 3. Run '.quit'
+4. Run 'flask shell'
+5. Run 'from app import db'
+6. Run 'from app.models import [All tables in model]"
+7. Run 'db.create_all()'
 
 Adding to Database:
 1. Run 'flask shell'
