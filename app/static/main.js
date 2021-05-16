@@ -37,6 +37,11 @@ function loadQuestion(){
     quiz_title = $("#quiz-title").html();
     var message = quiz_title + ": Question " + current_q + " of " + questions.length;
     $("#quiz-title").html(message);
+
+    if(questions.length == 1){
+        $("#nextQuestionButton").attr('value', 'Submit');
+        $("#nextQuestionButton").attr('onclick', 'submitQuiz()');
+    }
 }
 
 function nextQuestion(){
@@ -86,26 +91,18 @@ function submitQuiz(){
     answers.push(answer);
 
     //Handle submit form
-    var action = "";
-    var method = "post";
+    jsonResults = [{"title": quiz_title}];
 
-    $.ajax({
-        type : "GET",
-        url : '/index',
-        dataType: "json",
-        data: JSON.stringify(answers),
-        contentType: 'application/json; charset=UTF-8',
-        success: function (data) {
-            console.log(data);
-        },
-        error: function(data){
-            alert("Error submitting quiz");
-        }
-    });
+    for(i = 0; i < answers.length; i++){
+        jsonResults.push({
+            "question": $(questions[i]).find('p').html(),
+            "answer": answers[i]
+        });
+    }
 
+    $.post( "/submit_quiz", JSON.stringify(jsonResults));
 
-
-
+    
     $("#prevQuestionButton").addClass("hidden");
     $("#nextQuestionButton").addClass("hidden");
     $("#questions").html("Thank you for completing the quiz.");

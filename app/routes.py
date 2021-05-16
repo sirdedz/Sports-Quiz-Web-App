@@ -3,8 +3,9 @@ from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import current_user, login_user, logout_user, login_required
 from app.controllers import UserController, QuizController
 from werkzeug.urls import url_parse
+from werkzeug.datastructures import ImmutableMultiDict
 
-from app.models import User, Quiz, Question
+from app.models import User, Quiz, Question, Result
 
 @app.route('/')
 @app.route('/index')
@@ -59,7 +60,10 @@ def quiz(title):
 @app.route('/user', methods=['GET', 'POST'])
 @login_required
 def user():
-    return render_template('user.html', title="Account")
+
+    results = Result.query.filter(Result.user_id==current_user.id).all()
+
+    return render_template('user.html', title="Account", results=results)
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
@@ -125,9 +129,42 @@ def delete_quiz(title):
     return redirect('/')
 
 
-@app.route('/submit_quiz', methods=['GET', 'POST'])
+@app.route('/submit_quiz', methods=['POST'])
 @login_required
-def submit_quiz(answers):
+def submit_quiz():
+    #quiz_title = request.form['title']
 
-    return answers
+    jsonResult = request.get_json(force=True)
+    quiz_title = jsonResult[0]['title']
+
+    #Get actual quiz answers from database
+    quiz_object = Quiz.query.filter_by(title=quiz_title).first()
+
+    marking_questions = Question.query.filter(Question.quiz_id==quiz_object.id).all()
+    score = 0
+    questions_answered = 0
+    result = {}
+
+    class Answer():
+        def __init__(self, marker, user):
+            self.marker = marker
+            self.user = user
+
+    for x in range(len(jsonResult)-1):
+        if marking_questions[x].answer == jsonResult[x+1]['answer']:
+            #Correct answer
+            score += 1
+        
+        result[marking_questions[x].question] = Answer(marking_questions[x].answer, jsonResult[x+1]['answer'])
+            
+        questions_answered += 1
+
+
+
+    new_result = Result(score=score, questions_answered=questions_answered, user_id=current_user.id, quiz_title=quiz_title)
+
+    db.session.add(new_result)
+    db.session.commit()
+
+    return "placehold"
 

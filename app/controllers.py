@@ -2,7 +2,7 @@ from app import forms, models, db, app
 from flask import render_template, flash, redirect, request, url_for, session
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User, Quiz, Question
+from app.models import User, Quiz, Question, Result
 
 
 class UserController():
