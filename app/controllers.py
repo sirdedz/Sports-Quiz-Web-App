@@ -1,8 +1,8 @@
 from app import forms, models, db, app
-from flask import render_template, flash, redirect, request, url_for
+from flask import render_template, flash, redirect, request, url_for, session
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, Quiz, Question
 
 
 class UserController():
@@ -57,3 +57,37 @@ class UserController():
         db.session.commit()
 
         return redirect(url_for('login'))
+
+
+class QuizController():
+    def create(form):
+
+        title = request.form.get('title')
+        sport = request.form.get('sport')
+
+        quiz = Quiz.query.filter_by(title=title).first()
+
+        if quiz:
+            flash('Quiz already exists, add questions:')
+            return redirect(url_for('create_question'))
+
+        new_quiz = Quiz(title=title, sport=sport)
+        db.session.add(new_quiz)
+        db.session.commit()
+        
+        session['quiz'] = title
+        session.modified = True
+
+        return redirect(url_for('create_question'))
+
+    def createQuestion(form, quiz_id):
+
+        question = request.form.get('question')
+        answer = request.form.get('answer')
+
+        new_question = Question(question=question, answer=answer, quiz_id=quiz_id)
+
+        db.session.add(new_question)
+        db.session.commit()
+
+        return redirect(url_for('create_question'))

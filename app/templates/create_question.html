@@ -4,7 +4,7 @@
 
 {% block content %}
     <div>
-        <h2>Create a Quiz:</h2>
+        <h2>Create a question for quiz: {{quiz}}</h2>
 
         <p>
 
@@ -25,16 +25,16 @@
                 {{form.hidden_tag()}}
                 <span class="input">
                     <p>
-                        {{ form.title.label }}{{ form.title(class="input") }}<br>
-                        {% for error in form.title.errors %}
+                        {{ form.question.label }}{{ form.question(class="input") }}<br>
+                        {% for error in form.question.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                         {% endfor %}
                     </p>
                 </span>
                 <span class="input">
                     <p>
-                        {{ form.sport.label }}{{ form.sport(class="input") }}<br>
-                        {% for error in form.sport.errors %}
+                        {{ form.answer.label }}{{ form.answer(class="input") }}<br>
+                        {% for error in form.answer.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                         {% endfor %}
                     </p>
@@ -42,6 +42,27 @@
                 <p> {{ form.submit() }} </p>
             </div>
         </form>
-    
+
+        {% if questions %}
+        <br>
+        <hr>
+        <h5>Existing quiz questions:</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Question</th>
+                    <th>Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for q in questions %}
+                    <tr>
+                        <td>{{q.question}}</td>
+                        <td>{{q.answer}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
     </div>
 {% endblock %}

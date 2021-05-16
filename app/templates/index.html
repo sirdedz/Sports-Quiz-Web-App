@@ -41,8 +41,11 @@
             <thead>
               <tr>
                 <th scope="col">Sport</th>
-                <th scope="col"></th>
                 <th scope="col">Quiz</th>
+                <th scope="col">View</th>
+                {% if current_user.username == 'admin' %}
+                    <th scope="col">Delete</th>
+                {% endif %}
               </tr>
             </thead>
 
@@ -52,6 +55,9 @@
                     <td>{{quiz.sport}}</td>
                     <td>{{quiz.title}}</td>
                     <td><a href={{ url_for('quiz') }}>VIEW</a></td>
+                    {% if current_user.username == 'admin' %}
+                        <td><a href={{ url_for('delete_quiz') }}>DEL</a></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
