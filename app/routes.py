@@ -4,16 +4,16 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.controllers import UserController
 from werkzeug.urls import url_parse
 
-from app.models import User, Account, Offer, Event
+from app.models import User, Quiz
 
 @app.route('/')
 @app.route('/index')
 def index():
 
-    #Get events for front page
-    events = Event.query.all()
+    #Get quizzes for front page
+    quizzes = Quiz.query.all()
 
-    return render_template('index.html', events=events)
+    return render_template('index.html', quizzes=quizzes)
 
 
 
@@ -28,7 +28,7 @@ def login():
         return UserController.login(form)
 
 
-    return redirect(url_for('index'))
+    return redirect(url_for('user'))
 
 @app.route('/logout')
 def logout():
@@ -69,3 +69,7 @@ def content():
 @app.route('/stats', methods=['GET'])
 def stats():
     return render_template('stats.html', title="Global Statistics")
+
+@app.route('/create_quiz')
+def create_quiz():
+    return render_template('create_quiz.html', title="Create A Quiz")

@@ -9,6 +9,8 @@ $('.carousel').carousel({
 
 
 
+
+
 //REGISTER.HTML
 function validateUsername(){
     if($('.required').innerHTML == None){

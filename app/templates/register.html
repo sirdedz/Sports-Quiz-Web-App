@@ -5,9 +5,20 @@
 {% block content %}
     <h1>Register</h1>
 
-    <h2>
-        {{errors}}
-    </h2>
+    
+    <p>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li style="color: red; list-style-type: none;"> {{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+    </p>
 
     <form name="register" action="" method="post">
         <div class="form">
@@ -55,28 +66,5 @@
             <p> {{ form.submit() }} </p>
         </div>
     </form>
-
-
-    <p>
-
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li> {{message}}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-
-    </p>
-
-    <p>
-        <ul>
-            {% for user in users %}
-            <li> {{user.username}} {{user.password_hash}}</li>
-            {% endfor %}
-        </ul>
-    </p>
 
 {% endblock %}

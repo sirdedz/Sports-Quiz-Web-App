@@ -40,22 +40,26 @@
         <table>
             <thead>
               <tr>
-                <th scope="col">Name</th>
+                <th scope="col">Sport</th>
                 <th scope="col"></th>
-                <th scope="col">Highscore</th>
+                <th scope="col">Quiz</th>
               </tr>
             </thead>
 
             <tbody>
-                {% for event in events %}
+                {% for quiz in quizzes %}
                 <tr>
-                    <td>{{event.time}}</td>
-                    <td>{{event.title}}</td>
-                    <td><a href={{ url_for('event') }}>VIEW</a></td>
+                    <td>{{quiz.sport}}</td>
+                    <td>{{quiz.title}}</td>
+                    <td><a href={{ url_for('quiz') }}>VIEW</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
-          </table>
+        </table>
+        
+        {% if current_user.username == 'admin' %}
+            <a href={{ url_for('create_quiz') }}> CREATE QUIZ </a>
+        {% endif %}
     </div>
 
 {% endblock %}
