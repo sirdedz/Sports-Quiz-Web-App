@@ -69,25 +69,24 @@ class QuizController():
 
         if quiz:
             flash('Quiz already exists, add questions:')
-            return redirect(url_for('create_question'))
+            return redirect(url_for('create_question', quiz_title=title))
 
         new_quiz = Quiz(title=title, sport=sport)
         db.session.add(new_quiz)
         db.session.commit()
-        
-        session['quiz'] = title
-        session.modified = True
 
-        return redirect(url_for('create_question'))
+        return redirect(url_for('create_question', quiz_title=title))
 
-    def createQuestion(form, quiz_id):
+    def createQuestion(form, quiz_title):
+
+        quiz = Quiz.query.filter_by(title=quiz_title).first()
 
         question = request.form.get('question')
         answer = request.form.get('answer')
 
-        new_question = Question(question=question, answer=answer, quiz_id=quiz_id)
+        new_question = Question(question=question, answer=answer, quiz_id=quiz.id)
 
         db.session.add(new_question)
         db.session.commit()
 
-        return redirect(url_for('create_question'))
+        return redirect(url_for('create_question', quiz_title=quiz_title))

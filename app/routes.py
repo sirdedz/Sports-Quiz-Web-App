@@ -91,39 +91,43 @@ def create_quiz():
     else:
         return redirect('index')
 
-@app.route('/create_question', methods=['GET', 'POST'])
+@app.route('/create_question/<string:quiz_title>', methods=['GET', 'POST'])
 @login_required
-def create_question():
+def create_question(quiz_title):
     if current_user.username == 'admin':
 
         form = forms.CreateQuestionForm()
 
-        quiz = session.get('quiz', None)
-
-        quiz_object = Quiz.query.filter_by(title=quiz).first()
+        quiz_object = Quiz.query.filter_by(title=quiz_title).first()
         quiz_id = quiz_object.id
 
         questions = Question.query.filter(Question.quiz_id==quiz_id).all()
 
         if form.validate_on_submit():
-            return QuizController.createQuestion(form, quiz_id)
+            return QuizController.createQuestion(form, quiz_title)
 
-        return render_template('create_question.html', title="Create A Question", form=form, questions=questions)
+        return render_template('create_question.html', title="Create A Question", form=form, questions=questions, quiz_title=quiz_title)
     else:
         return redirect('index')
 
 
-@app.route('/delete_quiz', methods=['GET', 'POST'])
+@app.route('/delete_quiz/<string:title>', methods=['GET', 'POST'])
 @login_required
-def delete_quiz():
+def delete_quiz(title):
     if current_user.username == 'admin':
-        quiz = session.get('quiz', None)
 
-        quiz_object = Quiz.query.filter_by(title=quiz).first()
+        quiz_object = Quiz.query.filter_by(title=title).first()
         
         db.session.delete(quiz_object)
         db.session.commit()
 
     
-    return redirect('index')
+    return redirect('/')
+
+
+@app.route('/submit_quiz', methods=['GET', 'POST'])
+@login_required
+def submit_quiz(answers):
+
+    return answers
 
