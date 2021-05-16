@@ -45,13 +45,16 @@ def register():
     return UserController.register(form)
 
 
-@app.route('/quiz')
+@app.route('/quiz/<string:title>', methods=['GET'])
 @login_required
-def quiz():
-    quiz_title = session.get('quiz', None)
+def quiz(title):
+
+    quiz_title = title
     quiz = Quiz.query.filter_by(title=quiz_title).first()
 
-    return render_template('quiz.html', title="Quiz", quiz=quiz)
+    questions = Question.query.filter(Question.quiz_id==quiz.id).all()
+
+    return render_template('quiz.html', title="Quiz", quiz=quiz, questions=questions)
 
 @app.route('/user', methods=['GET', 'POST'])
 @login_required

@@ -3,10 +3,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="quiz-question">
-        <h2>{{ quiz.title }}</h2>
+    <h2 id="quiz-title">{{ quiz.title }}</h2>
 
-
-        <p onclick='nextQuestion()'>Next Question</p>
+    <div id="questions">
+        {% for question in questions %}
+            <div class="question">
+                <p>{{question.question}}: </p>
+                <input type="text">
+            </div>
+        {% endfor %}
     </div>
+
+    <input type="button" onclick='nextQuestion("{{ quiz.title }}")' value="Next Question">
+
 {% endblock %}

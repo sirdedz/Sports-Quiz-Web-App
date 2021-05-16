@@ -24,6 +24,9 @@
         <!-- JAVASCRIPT -->
         <script src="{{ url_for('static', filename='main.js') }}"></script>
 
+        <!-- FOR LOCAL SCRIPTS -->
+        {% block head %}{% endblock %}
+
         {% if title %}
         <title>{{title}} - SharkStakes</title>
         {% else %}
