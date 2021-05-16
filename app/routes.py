@@ -19,8 +19,15 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    form = forms.LoginForm()
+
     if not current_user.is_authenticated:
-       return UserController.login()
+        if form.validate_on_submit():
+            UserController.login_post(form)
+
+        return UserController.login(form)
+
+
     return redirect(url_for('index'))
 
 @app.route('/logout')
@@ -28,9 +35,14 @@ def logout():
     return UserController.logout()
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return "Placeholder for registration page"
+    form = forms.RegistrationForm()
+
+    if form.validate_on_submit():
+        return UserController.register_post(form)
+
+    return UserController.register(form)
 
 
 @app.route('/quiz')

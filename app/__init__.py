@@ -15,3 +15,16 @@ login = LoginManager(app)
 login.login_view = 'login'
 
 from app import routes, models
+
+def create_app():
+    db.init_app(app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'routes.login'
+    login_manager.init_app(app)
+
+    from app.models import User
+
+    @login_manager.user_loader
+    def user_loader(user_id):
+        return User.query.get(int(user_id))
