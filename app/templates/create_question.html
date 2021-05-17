@@ -5,7 +5,7 @@
 
 {% block content %}
     <div>
-        <h2>Create a question for quiz: {{quiz}}</h2>
+        <h2>Create a question for quiz: {{quiz.title}}</h2>
 
         <p>
 
@@ -43,6 +43,7 @@
                 <p> {{ form.submit() }} </p>
             </div>
         </form>
+        <a href={{ url_for('quiz', title=quiz.title) }}>DONE</a>
 
         {% if questions %}
         <br>
