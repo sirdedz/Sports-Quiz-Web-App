@@ -161,6 +161,7 @@ def delete_quiz(title):
     if current_user.username == 'admin':
 
         quiz_object = Quiz.query.filter_by(title=title).first()
+        
         quiz_id = quiz_object.id
 
         db.session.query(Question).filter(Question.quiz_id==quiz_id).delete()
