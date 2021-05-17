@@ -1,8 +1,12 @@
 from app import forms, models, db, app
-from flask import render_template, flash, redirect, request, url_for, session
+from flask import render_template, flash, redirect, request, url_for
 from werkzeug.urls import url_parse
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Quiz, Question, Result
+
+from sqlalchemy import func, desc
+from dateutil import parser
+from datetime import date
 
 
 class UserController():
@@ -41,7 +45,15 @@ class UserController():
         email = request.form.get('email')
         firstname = request.form.get('firstname')
         surname = request.form.get('surname')
+        dob = request.form.get('dob')
+        address = request.form.get('address')
+        country = request.form.get('country')
+        postcode = request.form.get('postcode')
+        state = request.form.get('state')
+        phone = request.form.get('phone')
         password = request.form.get('password')
+
+        dob = parser.parse(dob).date()
 
         user = User.query.filter_by(username=username).first()
 
@@ -51,7 +63,7 @@ class UserController():
             return redirect(url_for('register'))
 
         #otherwise create a new database entry
-        new_user = User(username=username, email=email, firstname=firstname, surname=surname)
+        new_user = User(username=username, email=email, firstname=firstname, surname=surname, dob=dob, address=address, country=country, postcode=postcode, state=state, phone=phone)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
@@ -97,3 +109,78 @@ class ResultController():
         results = Result.query.filter(Result.user_id==current_user.id).all()
 
         return render_template('results.html', title="Results", results=results)
+
+
+class StatsController():
+    def get():
+
+        results = Result.query.all()
+
+
+        class Results():
+            def __init__(self, avg, your_avg, pop_quiz, times_played, country, users, avg_age):
+                self.avg = avg
+                self.your_avg = your_avg
+                self.pop_quiz = pop_quiz
+                self.times_played = times_played
+                self.country = country
+                self.users = users
+                self.avg_age = avg_age
+
+
+        #Get averages
+        avg = 0
+
+        count = 0
+        for r in results:
+            if r.questions_answered > 0:
+                percentage = (r.score / r.questions_answered) * 100
+
+                avg += percentage
+                count += 1
+
+        avg = round(avg / count, 2)
+
+        your_avg = 0
+        count2 = 0
+        if current_user.is_authenticated:
+            your_results = Result.query.filter(Result.user_id==current_user.id).all()
+
+            for r in your_results:
+                if r.questions_answered > 0:
+                    percentage = (r.score / r.questions_answered) * 100
+
+                    your_avg += percentage
+                    count2 += 1
+            
+            if count2 > 0:
+                your_avg = round(your_avg / count2, 2)
+        
+
+        avg_age = 0
+        count3 = 0
+        users = User.query.filter().all()
+
+        for u in users:
+            if u.dob is not None:
+                dob = u.dob
+
+                age = date.today() - dob
+                age = age.days / 365.25
+
+                avg_age += age
+                count3 += 1
+        
+        if count3 > 0:
+            avg_age = round(avg_age / count3, 2)
+
+
+        #Get most common fields
+        quiz = db.session.query(Result.quiz_title, func.count(Result.id).label('qty')).group_by(Result.quiz_title).order_by(desc('qty')).first()
+        
+        country = db.session.query(User.country, func.count(User.id).label('qty')).group_by(User.country).order_by(desc('qty')).first()
+
+        results = Results(avg, your_avg, quiz[0], quiz[1], country[0], country[1], avg_age)
+
+
+        return render_template('stats.html', title="Global Statistics", results=results)

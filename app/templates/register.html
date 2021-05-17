@@ -111,14 +111,6 @@
                     {% endfor %}
                 </p>
             </span>
-            <span class="input">
-                <p>
-                    {{ form.repeat_password.label }}{{ form.repeat_password(class="input") }}<br>
-                    {% for error in form.repeat_password.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                    {% endfor %}
-                </p>
-            </span>
             <p> {{ form.submit() }} </p>
         </div>
     </form>

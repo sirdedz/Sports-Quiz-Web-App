@@ -154,7 +154,7 @@ function addData(user_data){
 $("#results-table").ready(drawResults);
 
 function drawResults(){
-    if($("#results-table").length > 0){
+    if($("#myChart").length > 0 ){
         $.get('get_results_json', addData);
     }
 }

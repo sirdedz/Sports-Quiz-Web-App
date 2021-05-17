@@ -1,7 +1,7 @@
 from app import app, db, models, forms
 from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import current_user, login_user, logout_user, login_required
-from app.controllers import UserController, QuizController, ResultController
+from app.controllers import UserController, QuizController, ResultController, StatsController
 from werkzeug.urls import url_parse
 from werkzeug.datastructures import ImmutableMultiDict
 
@@ -91,7 +91,7 @@ def content():
 
 @app.route('/stats', methods=['GET'])
 def stats():
-    return render_template('stats.html', title="Global Statistics")
+    return StatsController.get()
 
 @app.route('/create_quiz', methods=['GET', 'POST'])
 @login_required

@@ -21,7 +21,6 @@ class RegistrationForm(FlaskForm):
     postcode = IntegerField('Postcode: ')
     phone = IntegerField('Phone: ')
     password = PasswordField('Password: ', validators=[DataRequired()])
-    repeat_password = PasswordField('Repeat Password: ', validators=[DataRequired(), EqualTo(password, message="Passwords do not match")])
     submit = SubmitField('Register')
 
 class CreateQuizForm(FlaskForm):

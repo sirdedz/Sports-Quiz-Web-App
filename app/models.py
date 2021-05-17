@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True, index=True)
     firstname = db.Column(db.String(64))
     surname = db.Column(db.String(64))
-    dob = db.Column(db.DateTime)
+    dob = db.Column(db.Date)
     address = db.Column(db.String(128))
     country = db.Column(db.String(64))
     state = db.Column(db.String(64))
