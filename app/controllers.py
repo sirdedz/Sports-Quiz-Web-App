@@ -1,3 +1,6 @@
+#corresponding controller actions to be used in routes.py
+
+
 from app import forms, models, db, app
 from flask import render_template, flash, redirect, request, url_for
 from werkzeug.urls import url_parse
@@ -8,13 +11,16 @@ from sqlalchemy import func, desc
 from dateutil import parser
 from datetime import date
 
-
+#controller class for user functionality
 class UserController():
 
+#render login form
     def login(form):
 
         return render_template('login.html', title='Login', form=form)
-    
+
+#check that username is valid and then check password
+#show error/redirect appropriately
     def login_post(form):
 
         user = User.query.filter_by(username=form.username.data).first()
@@ -27,18 +33,19 @@ class UserController():
 
         return redirect(url_for('user'))
 
-
+#function for loggin out as user
     def logout():
         logout_user()
         return redirect(url_for('index'))
 
-
+#render registration form
     def register(form):
 
         users = User.query.all()
 
         return render_template('register.html', title='Register', users=users, form=form)
 
+#get info from user table
     def register_post(form):
 
         username = request.form.get('username')
@@ -70,8 +77,9 @@ class UserController():
 
         return redirect(url_for('login'))
 
-
+#controller class for quiz
 class QuizController():
+    #controller for creating a new quiz form or adding to an existing one
     def create(form):
 
         title = request.form.get('title')
@@ -89,6 +97,7 @@ class QuizController():
 
         return redirect(url_for('create_question', quiz_title=title))
 
+#controller for creating questions to then be added into db
     def createQuestion(form, quiz_title):
 
         quiz = Quiz.query.filter_by(title=quiz_title).first()
@@ -103,7 +112,7 @@ class QuizController():
 
         return redirect(url_for('create_question', quiz_title=quiz_title))
 
-    
+#controller class for generating results template
 class ResultController():
     def generate():
         results = Result.query.filter(Result.user_id==current_user.id).all()
@@ -116,7 +125,7 @@ class StatsController():
 
         results = Result.query.all()
 
-
+#intitialize results for specific user
         class Results():
             def __init__(self, avg, your_avg, pop_quiz, times_played, country, users, avg_age):
                 self.avg = avg
@@ -152,10 +161,10 @@ class StatsController():
 
                     your_avg += percentage
                     count2 += 1
-            
+
             if count2 > 0:
                 your_avg = round(your_avg / count2, 2)
-        
+
 
         avg_age = 0
         count3 = 0
@@ -170,14 +179,14 @@ class StatsController():
 
                 avg_age += age
                 count3 += 1
-        
+
         if count3 > 0:
             avg_age = round(avg_age / count3, 2)
 
 
         #Get most common fields
         quiz = db.session.query(Result.quiz_title, func.count(Result.id).label('qty')).group_by(Result.quiz_title).order_by(desc('qty')).first()
-        
+
         country = db.session.query(User.country, func.count(User.id).label('qty')).group_by(User.country).order_by(desc('qty')).first()
 
         results = Results(avg, your_avg, quiz[0], quiz[1], country[0], country[1], avg_age)

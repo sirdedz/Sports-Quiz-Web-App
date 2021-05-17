@@ -1,3 +1,5 @@
+#models used for backend (data structures)
+
 from datetime import datetime
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,6 +10,7 @@ from flask_login import UserMixin
 def load_user(id):
     return User.query.get(int(id))
 
+#data structure/table related to each user, attained from registration page and used later for stats
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, index=True)
@@ -22,18 +25,18 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(128), unique=True, index=True)
     password_hash = db.Column(db.String(128))
 
-
+#functionality for setting and checking password hashes
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
-    
+
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
 
-
+#model/table for quiz
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128))
@@ -42,7 +45,7 @@ class Quiz(db.Model):
     def __repr__(self):
         return '<Quiz {}>'.format(self.title)
 
-
+#table for quiz question w foreign key quiz_id
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(256))
@@ -53,6 +56,7 @@ class Question(db.Model):
     def __repr__(self):
         return '<Question {}>'.format(self.question)
 
+#table for quiz result 
 class Result(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Integer)
