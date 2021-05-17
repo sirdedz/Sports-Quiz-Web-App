@@ -1,3 +1,6 @@
+//javascript to be used throughout website
+
+//redirects to homepage ie index.html
 function toHome(){
     window.location.replace("/");
 }
@@ -25,6 +28,7 @@ var questions;
 var quiz_title;
 var answers = [];
 
+//initialises question, checks length and sets message to be presented to the user in the form of a question
 function loadQuestion(){
     questions = $("#questions").children();
 
@@ -38,12 +42,14 @@ function loadQuestion(){
     var message = quiz_title + ": Question " + current_q + " of " + questions.length;
     $("#quiz-title").html(message);
 
+//submits question upon clicking
     if(questions.length == 1){
         $("#nextQuestionButton").attr('value', 'Submit');
         $("#nextQuestionButton").attr('onclick', 'submitQuiz()');
     }
 }
 
+//iterates to the next question
 function nextQuestion(){
 
     var answer = $(questions[current_q-1]).find('input').val();
@@ -69,6 +75,7 @@ function nextQuestion(){
 
 }
 
+//moves tot eh previous question
 function prevQuestion(){
     current_q -= 1;
 
@@ -85,7 +92,7 @@ function prevQuestion(){
     $(questions[current_q]).removeClass("question-visible");
     $(questions[current_q]).addClass("question-hidden");
 }
-
+//testing
 function handleMarking(data){
     console.log(data);
 }
@@ -109,13 +116,14 @@ function submitQuiz(){
 
     post_quiz(jsonResults);
 
-    
+
     $("#prevQuestionButton").addClass("hidden");
     $("#nextQuestionButton").addClass("hidden");
     $("#questions").addClass("hidden");
 
 }
 
+//parse results
 function post_quiz(results){
     $.ajax({
         type: "POST",
@@ -123,12 +131,13 @@ function post_quiz(results){
         data: JSON.stringify(results),
         contentType: "text/json; charset=utf-8",
         dataType: "text",
-        success: function (msg) {            
+        success: function (msg) {
             handleFeedback(msg);
         }
     });
 }
 
+//display userfeedback in a friendlier format 
 function handleFeedback(data){
     $("#feedback-div").removeClass("hidden");
 
@@ -165,13 +174,13 @@ const dataPoints = [];
 
 function addData(user_data){
     json = JSON.parse(user_data);
-    
+
     for(var i = 0; i < json.length; i++){
         for (var key in json[i]){
             dataPoints.push(key);
             labels.push(json[i][key]);
         }
-    }  
+    }
 
     const data = {
         labels: labels,
@@ -182,7 +191,7 @@ function addData(user_data){
             data: dataPoints,
         }]
     };
-    
+
     const config = {
         type: 'line',
         data,
