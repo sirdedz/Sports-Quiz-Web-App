@@ -9,11 +9,32 @@ The admin account is simply the user with 'admin' as their username (every usern
 The structure of the web app is as follows:
  - The home page (index) allows users to choose a quiz which they want to take, or create a new quiz. It also allows the admin to delete quizzes.
  - If a user chooses to create a quiz they are then redirected to a page which allows them to create questions for the quiz they just created.
- - From the home page a user is able to navigate to the login page where they can either login or be redirected to the registration page, where they\can register an account.
- - Once a user has navigated to a quiz page they are able to complete the questions and submit it for marking, where they will receive\feedback and their results will be submitted.
+ - From the home page a user is able to navigate to the login page where they can either login or be redirected to the registration page, where they can register an account.
+ - Once a user has navigated to a quiz page they are able to complete the questions and submit it for marking, where they will receive feedback and their results will be submitted.
  - A user can also navigate to the results page where they are able to see the results of all the quizzes they have completed.
  - A user can also navigate to the stats page where they are able to see some statistics which cover the whole playerbase of the web app.
  - Finally, a user can navigate to their user page to view their account details.
+
+
+ Architecture:
+ The app is using 
+ - Flask as a host (written in Python3)
+ - Jinja2 in combination with HTML5 to structure content
+ - JavaScript and JQuery for client side scripts
+ - SQLAlchemy to interact with an SQLite3 database
+ - CSS to style the pages
+
+ External Libraries Used:
+ - Bootstrap: https://getbootstrap.com/
+    - CSS: https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css
+    - JS: https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js
+    - Icons: https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css
+    
+ - JQuery: 
+    - JS: https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+
+ - Chart.js:https://www.chartjs.org
+    - JS: https://cdn.jsdelivr.net/npm/chart.js
 
 
 # Instructions for starting web application:
