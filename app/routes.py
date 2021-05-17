@@ -71,7 +71,8 @@ def get_results_json():
     final = []
 
     for r in results:
-        final.append({r.score: r.date})
+        percentage = (r.score / r.questions_answered) * 100
+        final.append({percentage: r.date})
 
     return json.dumps(final, default=str)
 
@@ -140,10 +141,9 @@ def delete_quiz(title):
     return redirect('/')
 
 
-@app.route('/submit_quiz', methods=['POST'])
+@app.route('/submit_quiz', methods=['GET', 'POST'])
 @login_required
 def submit_quiz():
-    #quiz_title = request.form['title']
 
     jsonResult = request.get_json(force=True)
     quiz_title = jsonResult[0]['title']
@@ -177,5 +177,5 @@ def submit_quiz():
     db.session.add(new_result)
     db.session.commit()
 
-    return "placehold"
+    return json.dumps(result, default=str)
 

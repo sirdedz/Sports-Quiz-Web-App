@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
+from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, NumberRange
+from wtforms.fields.html5 import DateField
 
 class LoginForm(FlaskForm):
     username = StringField('Username: ', validators=[DataRequired()])
@@ -10,10 +11,17 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username: ', validators=[DataRequired()])
-    email = StringField('Email: ', validators=[DataRequired()])
+    email = StringField('Email: ', validators=[DataRequired(), Email()])
     firstname = StringField('First Name: ', validators=[DataRequired()])
     surname = StringField('Surname: ', validators=[DataRequired()])
+    dob = DateField('Date of Birth: ', format='%Y-%m-%d')
+    address = StringField('Address: ')
+    country = StringField('Country: ')
+    state = StringField('State: ')
+    postcode = IntegerField('Postcode: ')
+    phone = IntegerField('Phone: ')
     password = PasswordField('Password: ', validators=[DataRequired()])
+    repeat_password = PasswordField('Repeat Password: ', validators=[DataRequired(), EqualTo(password, message="Passwords do not match")])
     submit = SubmitField('Register')
 
 class CreateQuizForm(FlaskForm):

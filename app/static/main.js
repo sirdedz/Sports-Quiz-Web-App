@@ -86,6 +86,10 @@ function prevQuestion(){
     $(questions[current_q]).addClass("question-hidden");
 }
 
+function handleMarking(data){
+    console.log(data);
+}
+
 function submitQuiz(){
     var answer = $(questions[current_q-1]).find('input').val();
     answers.push(answer);
@@ -105,7 +109,8 @@ function submitQuiz(){
     
     $("#prevQuestionButton").addClass("hidden");
     $("#nextQuestionButton").addClass("hidden");
-    $("#questions").html("Thank you for completing the quiz.");
+
+    $.get('/submit_quiz', handleMarking);
 }
 
 
@@ -149,5 +154,7 @@ function addData(user_data){
 $("#results-table").ready(drawResults);
 
 function drawResults(){
-    $.get('get_results_json', addData);
+    if($("#results-table").length > 0){
+        $.get('get_results_json', addData);
+    }
 }

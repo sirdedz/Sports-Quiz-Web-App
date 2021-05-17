@@ -5,7 +5,16 @@
 {% block content %}
     <div class="user-main">
         <h2>Welcome back, {{ current_user.username }}</h2>
-
-
+        <h6>User Details:</h6>
+        <p>First name: {{ current_user.firstname }}</p>
+        <p>Surname: {{ current_user.surname }}</p>
+        <p>Date of Birth: {{ current_user.dob }}</p>
+        <p>Address: {{ current_user.address }}</p>
+        <p>Country: {{ current_user.country }}</p>
+        <p>State: {{ current_user.state }}</p>
+        <p>Postcode: {{ current_user.postcode }}</p>
+        <p>Phone: {{ current_user.phone }}</p>
+        <p>Email: {{current_user.email }}</p>
         <p><a href={{ url_for('logout') }}>Logout</a></p>
+    </div>
 {% endblock %}
