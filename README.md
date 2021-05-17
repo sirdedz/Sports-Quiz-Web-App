@@ -54,7 +54,7 @@ The structure of the web app is as follows:
     - run 'quit()'
 4. start the application by running the following in a command prompt:
     - run 'flask run'
-5. once the web application is running:
+5. to insert sample data once the web application is running:
     - navigate to the login page (top right corner) and click 'register'
     - register an account with username 'admin'
     - navigate back to the user page by clicking the user icon in the top right and login with your admin account
