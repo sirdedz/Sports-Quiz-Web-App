@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, NumberRange
+from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, NumberRange, Length
 from wtforms.fields.html5 import DateField
 
 class LoginForm(FlaskForm):
@@ -19,7 +19,7 @@ class RegistrationForm(FlaskForm):
     country = StringField('Country: ')
     state = StringField('State: ')
     postcode = IntegerField('Postcode: ')
-    phone = IntegerField('Phone: ')
+    phone = StringField('Phone: ', validators=[Length(min=8, max=10, message="Invalid phone number")])
     password = PasswordField('Password: ', validators=[DataRequired()])
     submit = SubmitField('Register')
 

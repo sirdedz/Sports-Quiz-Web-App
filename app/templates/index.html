@@ -63,7 +63,7 @@
             </tbody>
         </table>
         
-        {% if current_user.username == 'admin' %}
+        {% if current_user.is_authenticated %}
             <a href={{ url_for('create_quiz') }}> CREATE QUIZ </a>
         {% endif %}
     </div>

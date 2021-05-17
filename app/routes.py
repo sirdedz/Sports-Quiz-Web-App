@@ -8,6 +8,7 @@ from werkzeug.datastructures import ImmutableMultiDict
 from app.models import User, Quiz, Question, Result
 from datetime import datetime
 import json
+import populate_db
 
 @app.route('/')
 @app.route('/index')
@@ -79,6 +80,11 @@ def get_results_json():
 @app.route('/user', methods=['GET', 'POST'])
 @login_required
 def user():
+    if current_user.username == 'admin':
+        results = Question.query.all()
+
+        return render_template('user.html', title="Results", results=results)
+
     return render_template('user.html', title="Results")
 
 @app.route('/about', methods=['GET', 'POST'])
@@ -157,7 +163,10 @@ def submit_quiz():
     result = {}
 
     for x in range(len(jsonResult)-1):
-        if marking_questions[x].answer == jsonResult[x+1]['answer']:
+        m = marking_questions[x].answer.replace(" ", '').lower()
+        u = jsonResult[x+1]['answer'].replace(" ", '').lower()
+
+        if m == u:
             #Correct answer
             score += 1
         
@@ -173,3 +182,12 @@ def submit_quiz():
     db.session.commit()
     
     return json.dumps(result, default=str)
+
+
+@app.route('/populate')
+@login_required
+def populate():
+    if current_user.username == 'admin':
+        populate_db.run(current_user.id)
+
+    return redirect('index')

@@ -136,7 +136,10 @@ function handleFeedback(data){
         if (key != 'score'){
             var style;
 
-            if(data[key][0] != data[key][1]){
+            var m = data[key][0].replace(/\s/g, '').toLowerCase();
+            var u = data[key][1].replace(/\s/g, '').toLowerCase();
+
+            if(u != m){
                 style = "background-color: rgba(219, 76, 76, 0.2);"
             }else{
                 style = "background-color: rgba(85, 219, 76, 0.2);"
