@@ -1,3 +1,6 @@
+/*css to be used on all html files in the templates folder*/
+
+/*------css to be used globally throughout the website-------*/
 :root{
     --header_height: 80px;
     --grey1: rgba(0, 0, 0, 0.05);
