@@ -98,6 +98,7 @@ function handleMarking(data){
 }
 
 function submitQuiz(){
+
     var answer = $(questions[current_q-1]).find('input').val();
     answers.push(answer);
 
@@ -118,6 +119,7 @@ function submitQuiz(){
 
     $("#prevQuestionButton").addClass("hidden");
     $("#nextQuestionButton").addClass("hidden");
+    $("#questions").addClass("hidden");
 
 }
 

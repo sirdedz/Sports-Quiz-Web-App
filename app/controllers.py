@@ -148,7 +148,8 @@ class StatsController():
                 avg += percentage
                 count += 1
 
-        avg = round(avg / count, 2)
+        if count > 0:
+            avg = round(avg / count, 2)
 
         your_avg = 0
         count2 = 0
@@ -189,7 +190,10 @@ class StatsController():
 
         country = db.session.query(User.country, func.count(User.id).label('qty')).group_by(User.country).order_by(desc('qty')).first()
 
-        results = Results(avg, your_avg, quiz[0], quiz[1], country[0], country[1], avg_age)
+        if len(results) != 0:
+            results = Results(avg, your_avg, quiz[0], quiz[1], country[0], country[1], avg_age)
+
+            return render_template('stats.html', title="Global Statistics", results=results)
 
 
-        return render_template('stats.html', title="Global Statistics", results=results)
+        return render_template('stats.html', title="Global Statistics", results="None")

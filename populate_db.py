@@ -95,11 +95,14 @@ def run(user_id):
         d2 = datetime.strptime('1/1/2021 4:50 AM', '%m/%d/%Y %I:%M %p')
         date = random_date(d1, d2)
 
-        #numq = db.session.query(Quiz.title, func.count(Question.id)).outerjoin(Question).group_by(Quiz.title)
-        num = db.session.query(Quiz.title, func.count(Question.id).label('qty')).group_by(Quiz.title).order_by(desc('qty')).first()
-        score = random.randrange(num[1])
+        rand_title = random.choice(titles)
 
-        new_result = Result(date=date, user_id=user_id, score=score, questions_answered=num[1], quiz_title=num[0])
+        rand_quiz = Quiz.query.filter_by(title=rand_title).first()
+
+        num = Question.query.filter(Question.quiz_id == rand_quiz.id).count()
+        score = random.randrange(num)
+
+        new_result = Result(date=date, user_id=user_id, score=score, questions_answered=num, quiz_title=rand_title)
 
         db.session.add(new_result)
         db.session.commit()

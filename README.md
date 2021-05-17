@@ -51,12 +51,13 @@ The structure of the web app is as follows:
     - run 'from app import db'
     - run 'from app.models import User, Result, Quiz, Question'
     - run 'db.create_all()'
+    - run 'quit()'
 4. start the application by running the following in a command prompt:
     - run 'flask run'
 5. once the web application is running:
-    - navigate to the login page and click 'register'
+    - navigate to the login page (top right corner) and click 'register'
     - register an account with username 'admin'
-    - navigate back to the user page by clicking the user icon in the top right
+    - navigate back to the user page by clicking the user icon in the top right and login with your admin account
     - scroll down and click on 'Populate Database'
         - This will provide some quizzes as well as mock results for the admin account
 

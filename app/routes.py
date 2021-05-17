@@ -150,7 +150,7 @@ def create_question(quiz_title):
         if form.validate_on_submit():
             return QuizController.createQuestion(form, quiz_title)
 
-        return render_template('create_question.html', title="Create A Question", form=form, questions=questions, quiz_title=quiz_title)
+        return render_template('create_question.html', title="Create A Question", form=form, questions=questions, quiz=quiz_object)
     else:
         return redirect('index')
 
@@ -161,6 +161,10 @@ def delete_quiz(title):
     if current_user.username == 'admin':
 
         quiz_object = Quiz.query.filter_by(title=title).first()
+        quiz_id = quiz_object.id
+
+        db.session.query(Question).filter(Question.quiz_id==quiz_id).delete()
+        db.session.query(Result).filter(Result.quiz_title==quiz_object.title).delete()
 
         db.session.delete(quiz_object)
         db.session.commit()
