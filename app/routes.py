@@ -148,7 +148,7 @@ def submit_quiz():
     jsonResult = request.get_json(force=True)
     quiz_title = jsonResult[0]['title']
 
-    #Get actual quiz answers from database
+    #Get actual quiz answers from database for marking
     quiz_object = Quiz.query.filter_by(title=quiz_title).first()
 
     marking_questions = Question.query.filter(Question.quiz_id==quiz_object.id).all()
@@ -156,26 +156,19 @@ def submit_quiz():
     questions_answered = 0
     result = {}
 
-    class Answer():
-        def __init__(self, marker, user):
-            self.marker = marker
-            self.user = user
-
     for x in range(len(jsonResult)-1):
         if marking_questions[x].answer == jsonResult[x+1]['answer']:
             #Correct answer
             score += 1
         
-        result[marking_questions[x].question] = Answer(marking_questions[x].answer, jsonResult[x+1]['answer'])
+        result[marking_questions[x].question] = [marking_questions[x].answer, jsonResult[x+1]['answer']]
             
         questions_answered += 1
 
-
-
-    new_result = Result(score=score, questions_answered=questions_answered, user_id=current_user.id, quiz_title=quiz_title, date=datetime.utcnow())
+    result['score'] = [score, questions_answered]
 
     db.session.add(new_result)
     db.session.commit()
-
+    
     return json.dumps(result, default=str)
 

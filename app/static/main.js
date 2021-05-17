@@ -104,13 +104,52 @@ function submitQuiz(){
         });
     }
 
-    $.post( "/submit_quiz", JSON.stringify(jsonResults));
+    //result = $.post( "/submit_quiz", JSON.stringify(jsonResults));
+
+    post_quiz(jsonResults);
 
     
     $("#prevQuestionButton").addClass("hidden");
     $("#nextQuestionButton").addClass("hidden");
 
-    $.get('/submit_quiz', handleMarking);
+}
+
+function post_quiz(results){
+    $.ajax({
+        type: "POST",
+        url: "/submit_quiz",
+        data: JSON.stringify(results),
+        contentType: "text/json; charset=utf-8",
+        dataType: "text",
+        success: function (msg) {            
+            handleFeedback(msg);
+        }
+    });
+}
+
+function handleFeedback(data){
+    $("#feedback-div").removeClass("hidden");
+
+    data = JSON.parse(data);
+
+    for (var key in data){
+        if (key != 'score'){
+            var style;
+
+            if(data[key][0] != data[key][1]){
+                style = "background-color: rgba(219, 76, 76, 0.2);"
+            }else{
+                style = "background-color: rgba(85, 219, 76, 0.2);"
+            }
+
+            var new_row = "<tr style='"+style+"'><td>"+key+"</td><td>"+data[key][0]+"</td><td>"+data[key][1]+"</td></tr>";
+            $("#feedback").append(new_row);
+        }
+    };
+
+    var score = "<p>Well done! You scored "+data['score'][0]+" out of "+data['score'][1]+".</p>"
+
+    $("#feedback-div").append(score);
 }
 
 
