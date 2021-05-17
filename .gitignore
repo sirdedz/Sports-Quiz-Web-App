@@ -142,3 +142,4 @@ cython_debug/
 
 #SQL files
 .open
+.db
