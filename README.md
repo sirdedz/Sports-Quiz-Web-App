@@ -29,12 +29,13 @@ The structure of the web app is as follows:
     - CSS: https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css
     - JS: https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js
     - Icons: https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css
-    
+
  - JQuery: 
     - JS: https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 
  - Chart.js:https://www.chartjs.org
     - JS: https://cdn.jsdelivr.net/npm/chart.js
+
 
 
 # Instructions for starting web application:
