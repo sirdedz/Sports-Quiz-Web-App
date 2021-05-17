@@ -1,30 +1,42 @@
 # sharkstakesllc
 
-logo: https://vectr.com/tmp/jdrmi8dsl/b199CiH8XW.jpg?width=1000&height=1415.5&select=d6Z7hRFbk,h4RZBQ5Akb,aFHme6dQr&quality=1&source=selection
+# Overview:
+This is a git repository for a web application which allows users to quiz themselves on any information, but most notably sports trivia.
 
-2: https://vectr.com/tmp/a3ASCJXv0g/c3HjXNh4MX.svg?width=1920&height=875.06&select=b1cIS9FkaZ,baGc2ISQF&source=selection
+Note:
+The admin account is simply the user with 'admin' as their username (every username is unique)
 
-Wireframes: https://cacoo.com/
+The structure of the web app is as follows:
+ - The home page (index) allows users to choose a quiz which they want to take, or create a new quiz. It also allows the admin to delete quizzes.
+ - If a user chooses to create a quiz they are then redirected to a page which allows them to create questions for the quiz they just created.
+ - From the home page a user is able to navigate to the login page where they can either login or be redirected to the registration page, where they\can register an account.
+ - Once a user has navigated to a quiz page they are able to complete the questions and submit it for marking, where they will receive\feedback and their results will be submitted.
+ - A user can also navigate to the results page where they are able to see the results of all the quizzes they have completed.
+ - A user can also navigate to the stats page where they are able to see some statistics which cover the whole playerbase of the web app.
+ - Finally, a user can navigate to their user page to view their account details.
 
 
-(Fix later)
-Instructions for running flask app:
-1. FLASK_APP=sharkstakes.py
-2. export SECRET_KEY='temp_key'
+# Instructions for starting web application:
+1. navigate to the web application root directory in a command prompt
+2. run the following in the command prompt:
+    - run 'FLASK_APP=sharkstakes.py'
+    - run 'export SECRET_KEY="temp_key"'
+3. run the following in the command prompt to initialize the database:
+    - run 'sqlite3 app.db'
+    - run '.tables'
+    - run '.quit'
+    - run 'flask shell'
+    - run 'from app import db'
+    - run 'from app.models import User, Result, Quiz, Question'
+    - run 'db.create_all()'
+4. start the application by running the following in a command prompt:
+    - run 'flask run'
 
-Setting up Database:
-1. Run 'sqlite3 app.db'
-2. Run '.tables'
-3. Run '.quit'
-4. Run 'flask shell'
-5. Run 'from app import db'
-6. Run 'from app.models import [All tables in model]"
-7. Run 'db.create_all()'
 
-Adding to Database:
-1. Run 'flask shell'
-2. from app import db
-3. from app.models import User, Account, Offer, Event
-4. u = User(username="fasdfa", email="dfads@gmail.com")
-5. db.session.add(u)
-6. db.session.commit()
+ # Assets:
+
+- Logo: https://vectr.com/tmp/jdrmi8dsl/b199CiH8XW.jpg?width=1000&height=1415.5&select=d6Z7hRFbk,h4RZBQ5Akb,aFHme6dQr&quality=1&source=selection
+
+- Logo 2: https://vectr.com/tmp/a3ASCJXv0g/c3HjXNh4MX.svg?width=1920&height=875.06&select=b1cIS9FkaZ,baGc2ISQF&source=selection
+
+- Wireframe tool: https://cacoo.com/
