@@ -165,10 +165,11 @@ def submit_quiz():
             
         questions_answered += 1
 
+
     result['score'] = [score, questions_answered]
+    new_result = Result(score=score, questions_answered=questions_answered, user_id=current_user.id, quiz_title=quiz_title, date=datetime.utcnow())
 
     db.session.add(new_result)
     db.session.commit()
     
     return json.dumps(result, default=str)
-
