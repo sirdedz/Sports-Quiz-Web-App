@@ -1,16 +1,17 @@
 <!-- simple page for promoting the theme and purpose to users -->
+<!DOCTYPE html>
 
 {% extends "base.html" %}
 
 {% block content %}
 
 <div class="about-flex">
-  <div><img src="{{ url_for('static', filename='assets/ronaldo.jpg') }}"></div>
-  <div><img src="{{ url_for('static', filename='assets/nfl.jpg') }}"></div>
-  <div><img src="{{ url_for('static', filename='assets/nba.jpg') }}"></div>
+  <div><img src="{{ url_for('static', filename='assets/ronaldo.jpg') }}" alt='Ronaldo'></div>
+  <div><img src="{{ url_for('static', filename='assets/nfl.jpg') }}" alt='NFL'></div>
+  <div><img src="{{ url_for('static', filename='assets/nba.jpg') }}" alt='NBA'></div>
 </div>
 
-<p align="center">We love sporting trivia of all sorts! We're currently supporting quizlets for Soccer, AFL, NFL and the NBA. </p>
-<p align="center">We offer stats and feedback for each individual user, aswell as a safe and easy registration/user login. </p>
-<p align="center">Hope you enjoy!</p>
+<p>We love sporting trivia of all sorts! We're currently supporting quizlets for Soccer, AFL, NFL and the NBA. </p>
+<p>We offer stats and feedback for each individual user, aswell as a safe and easy registration/user login. </p>
+<p>Hope you enjoy!</p>
 {% endblock %}
