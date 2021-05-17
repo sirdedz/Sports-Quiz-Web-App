@@ -61,8 +61,12 @@ The structure of the web app is as follows:
     - scroll down and click on 'Populate Database'
         - This will provide some quizzes as well as mock results for the admin account
 
+# Testing:
+To run the database test cases simply run the following in a command prompt:
+- run 'python3 db_test.py'
 
- # Assets:
+
+# Assets:
 
 - Logo: https://vectr.com/tmp/jdrmi8dsl/b199CiH8XW.jpg?width=1000&height=1415.5&select=d6Z7hRFbk,h4RZBQ5Akb,aFHme6dQr&quality=1&source=selection
 
